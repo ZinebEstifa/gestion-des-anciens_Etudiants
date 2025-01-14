@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détails de l'Étudiant</title>
+  <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+  <div class="student-details-container">
+    <h1>Détails de l'Étudiant</h1>
+
+    <div id="student-info">
+      <!-- Les informations de l'étudiant seront insérées ici via JavaScript -->
+    </div>
+
+    <div id="student-list">
+      <!-- Liste des étudiants avec boutons d'actions -->
+    </div>
+
+    <button class='retour'onclick="goBack()">Retour</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Récupérer les données des étudiants depuis localStorage
+      const studentsData = localStorage.getItem('studentsData');
+      const studentList = document.getElementById('student-list');
+
+      if (studentsData) {
+        const students = JSON.parse(studentsData);
+        studentList.innerHTML = students.map(student => `
+          <div class="student-card">
+            <p><strong>Nom :</strong> ${student.nom}</p>
+            <p><strong>Email :</strong> ${student.emal || 'fatima.benslimane@example.com' }</p>
+            <p><strong>Numéro de Téléphone :</strong> ${student.numero_telephone || '0678345627'}</p>
+            <p><strong>Filière :</strong> ${student.category || 'Web Developement'}</p>
+            <div class="actions">
+              <button class="action-button" onclick="addProject(${student.id_ancien_etudiant})">Ajouter un Projet</button>
+              <button class="action-button" onclick="removeProject(${student.id_ancien_etudiant})">Supprimer un Projet</button>
+              <button class="action-button" onclick="addFormation(${student.id_ancien_etudiant})">Ajouter une Formation</button>
+              <button class="action-button" onclick="removeFormation(${student.id_ancien_etudiant})">Supprimer une Formation</button>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        studentList.innerHTML = '<p>Aucune donnée disponible.</p>';
+      }
+    });
+  
+    // Récupérer l'ID de l'étudiant depuis l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const studentId = urlParams.get('id');
+  
+    // Fonction pour afficher les détails de l'étudiant
+    async function fetchStudentDetails(id) {
+  const response = await fetch(`http://localhost:5001/student/${id}`);
+  const student = await response.json();
+  console.log("hhhh");
+  console.log(student);  // Pour déboguer et voir les données
+  
+  
+  const studentInfo = document.getElementById('student-info');
+  if (student) {
+    studentInfo.innerHTML = `
+    <div id="student-info-container">
+      <p><strong>Nom :</strong> ${student.nom || 'Inconnu'}</p>
+      <p><strong>Prénom :</strong> ${student['prénom'] || 'Non précisé'}</p>
+      <p><strong>Poste :</strong> ${student['poste'] || 'Développeur Mobile'}</p>
+      <p><strong>Entreprise :</strong> ${student['entreprise'] || 'Maroc Telecom'}</p>
+      <p><strong>Filière :</strong> ${student['category'] || 'Web Developement'}</p>
+      <p><strong>Email :</strong> ${student['emal']  || 'fatima.benslimane@example.com'}</p>
+      <p><strong>Numéro de téléphone :</strong> ${student['numero_telephone'] || '0678345627'}</p>
+      </div>
+    `;
+  } else {
+    studentInfo.innerHTML = '<p>Informations de l\'étudiant non disponibles.</p>';
+  }
+}
+
+
+    // Charger les détails de l'étudiant si l'ID est présent dans l'URL
+    if (studentId) {
+      fetchStudentDetails(studentId);
+    }
+
+    // Fonction pour ajouter un projet
+    async function addProject(studentId) {
+      const projectTitle = prompt('Entrez le titre du projet :');
+      const projectDescription = prompt('Entrez la description du projet :');
+
+      if (projectTitle && projectDescription) {
+        try {
+          const response = await fetch(`http://localhost:5001/student/${studentId}/project`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ titre: projectTitle, description: projectDescription }),
+          });
+
+          const result = await response.json();
+          alert(result.message || 'Projet ajouté avec succès !');
+          location.reload(); // Recharger la page pour afficher les mises à jour
+        } catch (error) {
+          console.error(error);
+          alert('Erreur lors de l’ajout du projet.');
+        }
+      } else {
+        alert('Le titre et la description sont obligatoires.');
+      }
+    }
+
+    // Fonction pour supprimer un projet
+    async function removeProject(studentId) {
+      if (confirm('Êtes-vous sûr de vouloir supprimer le projet associé à cet étudiant ?')) {
+        try {
+          const response = await fetch(`http://localhost:5001/student/${studentId}/project`, {
+            method: 'DELETE',
+          });
+
+          const result = await response.json();
+          alert(result.message || 'Projet supprimé avec succès !');
+          location.reload(); // Recharger la page pour afficher les mises à jour
+        } catch (error) {
+          console.error(error);
+          alert('Erreur lors de la suppression du projet.');
+        }
+      }
+    }
+
+    // Fonction pour ajouter une formation
+    async function addFormation(studentId) {
+      const formationName = prompt('Entrez le nom de la formation :');
+
+      if (formationName) {
+        try {
+          const response = await fetch(`http://localhost:5001/student/${studentId}/addFormation`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ formationName }),
+          });
+
+          const result = await response.json();
+          alert(result.message || 'Formation ajoutée avec succès !');
+          location.reload(); // Recharger la page pour afficher les mises à jour
+        } catch (error) {
+          console.error(error);
+          alert('Erreur lors de l’ajout de la formation.');
+        }
+      } else {
+        alert('Le nom de la formation est obligatoire.');
+      }
+    }
+
+    // Fonction pour supprimer une formation
+    async function removeFormation(studentId) {
+      if (confirm('Êtes-vous sûr de vouloir supprimer la formation associée à cet étudiant ?')) {
+        try {
+          const response = await fetch(`http://localhost:5001/student/${studentId}/formation`, {
+            method: 'DELETE',
+          });
+
+          const result = await response.json();
+          alert(result.message || 'Formation supprimée avec succès !');
+          location.reload(); // Recharger la page pour afficher les mises à jour
+        } catch (error) {
+          console.error(error);
+          alert('Erreur lors de la suppression de la formation.');
+        }
+      }
+    }
+
+    // Fonction pour revenir à la page précédente
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

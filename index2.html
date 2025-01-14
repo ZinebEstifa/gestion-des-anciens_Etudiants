@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>étude</title>
+  <link rel="stylesheet" href="style1.css">
+  
+  
+</head>
+<body>
+  <div class="dashboard-container">
+    <img class="first" alt="inpt" src="Logo_inpt.png">
+    <h1></h1>
+    
+  </div>
+
+  <div class="ho">
+    <header>
+      <h1>Welcome to your website</h1>
+    </header>
+
+    <label for="search"><stong>search :</stong></label>
+    <div id="search_butt">
+        <input
+      type="text"
+      id="search-query"
+      placeholder="Search for ex-student , job ..... "
+    >
+    <button id="search_button" onclick="searchStudents()">rechercher</button>
+   
+    </div>
+
+    <ul id="results"></ul>
+    
+    <h1 class="categ"><strong><u>Categories</u></strong></h1>
+    <div class="topics-container" id="topicsContainer">
+      
+      <div class="topic" onclick="fetchStudentsByFiliere('Intelligence')">
+        <img  class="topic-img" src="ai1.png">
+        <p><strong> Intelligence</strong></p>
+      </div>
+      <div class="topic" onclick="fetchStudentsByFiliere('Data Science')">
+        <img  class="topic-img" src="database.png">
+        <strong>Data Science</strong>
+      </div>
+      <div class="topic" onclick="fetchStudentsByFiliere('Cybersecurity')">
+        <img  class="topic-img" src="security.png">
+        <strong>Cybersecurity</strong>
+      </div>
+      <div class="topic" onclick="fetchStudentsByFiliere('Web Development')">
+        <img  class="topic-img" src="web.png">
+        <strong>Web Development</strong>
+      </div>
+      <div class="topic" onclick="fetchStudentsByFiliere('Cloud Computing')">
+        <img  class="topic-img" src="cloud-storage.png">
+        <strong>Cloud Computing</strong>
+      </div>
+      <div class="topic" onclick="fetchStudentsByFiliere('Software Engineering')">
+        <img  class="topic-img" src="softwar.png">
+        <p><strong>Software Engineering</strong></p>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="script2.js"></script>
+</body>
+</html>
+ 
+
+
+
+

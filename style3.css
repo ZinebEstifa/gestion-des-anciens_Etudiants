@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  .student-details-container {
+    margin: 20px;
+  }
+  
+  #student-info {
+    margin: 20px 0;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+
+  .retour{
+    background-color: #007bff; /* Couleur bleue élégante */
+    color: white; /* Texte en blanc */
+    border: none; /* Supprime les bordures */
+    border-radius: 8px; /* Arrondit les coins */
+    padding: 10px 20px; /* Espacement interne */
+  }
+
+  .actions {
+    display: flex; /* Conteneur flexible */
+    justify-content: space-around; /* Répartit les boutons uniformément */
+    align-items: center; /* Centre les boutons verticalement */
+    margin: 20px 0; /* Ajoute de l'espacement au-dessus et en dessous */
+  }
+  
+  .action-button {
+    background-color: #007bff; /* Couleur bleue élégante */
+    color: white; /* Texte en blanc */
+    border: none; /* Supprime les bordures */
+    border-radius: 8px; /* Arrondit les coins */
+    padding: 10px 20px; /* Espacement interne */
+    font-size: 16px; /* Taille de la police */
+    font-weight: bold; /* Texte en gras */
+    cursor: pointer; /* Affiche un pointeur au survol */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ajoute une ombre subtile */
+    transition: all 0.3s ease; /* Transition douce pour les effets */
+  }
+  
+  .action-button:hover {
+    background-color: #0056b3; /* Couleur bleue plus sombre au survol */
+    transform: translateY(-2px); /* Soulève légèrement le bouton au survol */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Augmente l'ombre au survol */
+  }
+  
+  .action-button:active {
+    transform: translateY(0); /* Annule l'effet d'élévation lors du clic */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Réduit l'ombre lors du clic */
+  }
+  
+   
+ 
+#student-info-container {
+    max-width: 600px; /* Limite la largeur pour un affichage élégant */
+    margin: 0 auto; /* Centre horizontalement */
+    text-align: center; /* Centre le texte */
+    padding: 20px;
+    background-color: #f9f9f9; /* Couleur d'arrière-plan douce */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour un effet élégant */
+  }
+  
+  #student-info-container p {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  #student-info-container strong {
+    color: #007bff; /* Une couleur pour les étiquettes */
+  }
+  
